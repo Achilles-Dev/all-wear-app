@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Dropdown } from '@nextui-org/react';
 import { useRouter } from 'next/router';
 import Logo from '../assets/a-logo.svg';
 import Cart from '../assets/empty_cart.svg';
@@ -8,6 +9,7 @@ import DownArrow from '../assets/vector.svg';
 
 const Header = () => {
   const [path, setPath] = useState('');
+  const [symbol, setSymbol] = useState(<span className="text-slate-900">&#36;</span>)
   const router = useRouter();
 
   useEffect(() => {
@@ -23,6 +25,16 @@ const Header = () => {
     }
   }, [router]);
 
+  const handleSymbol = (e) => {
+    if (e === 'EUR') {
+      setSymbol(<span className="text-slate-900">&#8364;</span>)
+    } else if (e == 'JPY') {
+      setSymbol(<span className="text-slate-900">&#165;</span>)
+    } else {
+      setSymbol(<span className="text-slate-900">&#36;</span>)
+    }
+  }
+
   return (
     <nav>
       <div className="flex justify-between items-center h-[80px] font-['Raleway'] text-[16px]">
@@ -35,10 +47,19 @@ const Header = () => {
           <Link href="/"><Image src={Logo} alt="Logo" /></Link>
         </div>
         <div className="flex gap-[22px]">
-          <div className="flex gap-2 align-middle">
-            <span>$</span>
-            <Image src={DownArrow} alt="Arrow Down" />
-          </div>
+          <Dropdown>
+            <Dropdown.Button className="px-0">
+            <div className="flex gap-2 align-middle">
+              {symbol}
+              <Image src={DownArrow} alt="Arrow Down" />
+            </div>
+            </Dropdown.Button>
+            <Dropdown.Menu className="font-['Raleway'] text-[16px]" color="secondary" onAction={(e) => handleSymbol(e)}>
+              <Dropdown.Item key="USD" className="text-slate-900 hover:bg-[#EEEEEE] focus:bg-[#EEEEEE]">&#36; USD</Dropdown.Item>
+              <Dropdown.Item key="EUR" className="text-slate-900 hover:bg-[#EEEEEE] focus:bg-[#EEEEEE]">&#8364; EUR</Dropdown.Item>
+              <Dropdown.Item key="JPY" className="text-slate-900 hover:bg-[#EEEEEE] focus:bg-[#EEEEEE]">&#165; JPY</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
           <Image src={Cart} alt="Cart" />
         </div>
       </div>
