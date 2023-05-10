@@ -7,9 +7,8 @@ import Logo from '../assets/a-logo.svg';
 import Cart from '../assets/empty_cart.svg';
 import DownArrow from '../assets/vector.svg';
 
-const Header = () => {
+const Header = ({ symbol, handleSymbol }) => {
   const [path, setPath] = useState('');
-  const [symbol, setSymbol] = useState(<span className="text-slate-900">&#36;</span>)
   const router = useRouter();
 
   useEffect(() => {
@@ -25,16 +24,6 @@ const Header = () => {
     }
   }, [router]);
 
-  const handleSymbol = (e) => {
-    if (e === 'EUR') {
-      setSymbol(<span className="text-slate-900">&#8364;</span>)
-    } else if (e == 'JPY') {
-      setSymbol(<span className="text-slate-900">&#165;</span>)
-    } else {
-      setSymbol(<span className="text-slate-900">&#36;</span>)
-    }
-  }
-
   return (
     <nav>
       <div className="flex justify-between items-center h-[80px] font-['Raleway'] text-[16px]">
@@ -49,10 +38,10 @@ const Header = () => {
         <div className="flex gap-[22px]">
           <Dropdown>
             <Dropdown.Button className="px-0">
-            <div className="flex gap-2 align-middle">
-              {symbol}
-              <Image src={DownArrow} alt="Arrow Down" />
-            </div>
+              <div className="flex gap-2 align-middle">
+                {symbol}
+                <Image src={DownArrow} alt="Arrow Down" />
+              </div>
             </Dropdown.Button>
             <Dropdown.Menu className="font-['Raleway'] text-[16px]" color="secondary" onAction={(e) => handleSymbol(e)}>
               <Dropdown.Item key="USD" className="text-slate-900 hover:bg-[#EEEEEE] focus:bg-[#EEEEEE]">&#36; USD</Dropdown.Item>

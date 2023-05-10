@@ -10,7 +10,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h2>Category name</h2>
+        <h2 className="text-[42px] font-[400] text-[#1D1F22] leading-relaxed">Category name</h2>
       </main>
     </>
   );

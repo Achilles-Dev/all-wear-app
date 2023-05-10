@@ -7,6 +7,10 @@
   min-height: 100vh;
 }
 
+.body {
+  font-family: 'Raleway', Times, serif;
+}
+
 .description {
   display: inherit;
   justify-content: inherit;
